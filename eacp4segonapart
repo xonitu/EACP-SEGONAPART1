@@ -74,41 +74,32 @@ public class EAC4P222231S2 {
 	// REACTIVAR USUARI
 	void reactivarUsuariDeBaixa(String[][] registre) {
 
-		int posicio = 0;
-		boolean noloEncuentra = false;
-		int troboBuit = 0;
-		String ficoUser = "";
-		String ficoDni = "";
-		String novaDataAlta = "";
-
 		System.out.println("Fica DNI que vulguis reactivar");
-		ficoDni = lector.nextLine();
+		String ficoDni = lector.nextLine();
 
-		posicio = obtenirFilaPerDniUsuariActiu(registre, ficoDni);
+		int posicio = obtenirFilaPerDniUsuariActiu(registre, ficoDni);
 
 		if (posicio != REG_INEXISTENT) {
 			System.out.println(
 					"Aquest usuari, " + registre[posicio][ID_USUARI] + ", esta actiu a la posicio; " + posicio);
 
-		}
-		if (posicio == REG_INEXISTENT) {
-			System.out.println("Usuari de baixa");
+		} else {
+
 			posicio = obtenirFilaPerDniDonatBaixa(registre, ficoDni);
-			obtenirUsuariPerFila(registre, posicio);
-			posicio = trobaBuit(registre);
+			if (posicio != REG_INEXISTENT) {
+				System.out.println("Introdueix nova data alta;");
+				String novaDataAlta = lector.nextLine();
+				registre[posicio][ID_DATA_ALTA] = novaDataAlta;
+				registre[posicio][ID_DATA_BAIXA] = "";
+			} else {
+				System.out.println("No existeix");
 
-			registre[posicio][ID_DNI] = ficoDni;
-			System.out.println("Introdueix nova data alta;");
-			novaDataAlta = lector.nextLine();
-			registre[posicio][ID_DATA_ALTA] = novaDataAlta;
-
+			}
 			System.out.println("_________________________________________");
 			System.out.println("REGISTRE ACTUALITZAT;");
-			System.out.println(registre[posicio][ID_USUARI]);
-
-		} else {
-			System.out.println("No existeix");
-			noloEncuentra = true;
+			System.out.println("Usuari\tDni\t\tAlta\t\tBaixa");
+			System.out.print("\n" + registre[posicio][ID_USUARI] + "\t" + registre[posicio][ID_DNI] + "\t"
+					+ registre[posicio][ID_DATA_ALTA] + "\t" + registre[posicio][ID_DATA_BAIXA]);
 		}
 	}
 

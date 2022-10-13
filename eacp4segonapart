@@ -73,7 +73,7 @@ public class EAC4P222231S2 {
 	 */
 	// REACTIVAR USUARI
 	void reactivarUsuariDeBaixa(String[][] registre) {
-
+		boolean trobat = false;
 		System.out.println("Fica DNI que vulguis reactivar");
 		String ficoDni = lector.nextLine();
 
@@ -82,26 +82,34 @@ public class EAC4P222231S2 {
 		if (posicio != REG_INEXISTENT) {
 			System.out.println(
 					"Aquest usuari, " + registre[posicio][ID_USUARI] + ", esta actiu a la posicio; " + posicio);
-
+        return;
 		} else {
-
-			posicio = obtenirFilaPerDniDonatBaixa(registre, ficoDni);
-			if (posicio != REG_INEXISTENT) {
+			posicio=obtenirFilaPerDniDonatBaixa(registre,ficoDni);
+		}
+		int posicioBuida=trobaBuit(registre);
+			if (posicioBuida != REG_INEXISTENT) {
 				System.out.println("Introdueix nova data alta;");
 				String novaDataAlta = lector.nextLine();
-				registre[posicio][ID_DATA_ALTA] = novaDataAlta;
-				registre[posicio][ID_DATA_BAIXA] = "";
+				
+				registre[posicioBuida][ID_USUARI] = registre[posicio][ID_USUARI];
+				registre[posicioBuida][ID_DNI] = registre[posicio][ID_DNI];
+				registre[posicioBuida][ID_DATA_ALTA] = novaDataAlta;
+				registre[posicio][ID_DATA_BAIXA] = "";				
+
+				System.out.println("_________________________________________");
+				System.out.println("REGISTRE ACTUALITZAT;");
+				System.out.println("Usuari\tDni\t\tAlta\t\tBaixa");
+				System.out.print("\n" + registre[posicio][ID_USUARI] + "\t" + registre[posicio][ID_DNI] + "\t"
+						+ registre[posicio][ID_DATA_ALTA] + "\t" + registre[posicio][ID_DATA_BAIXA]);
 			} else {
 				System.out.println("No existeix");
-
+				trobat = true;
+				lector.nextLine();
+return;
 			}
-			System.out.println("_________________________________________");
-			System.out.println("REGISTRE ACTUALITZAT;");
-			System.out.println("Usuari\tDni\t\tAlta\t\tBaixa");
-			System.out.print("\n" + registre[posicio][ID_USUARI] + "\t" + registre[posicio][ID_DNI] + "\t"
-					+ registre[posicio][ID_DATA_ALTA] + "\t" + registre[posicio][ID_DATA_BAIXA]);
+
 		}
-	}
+	
 
 //TROBA LA PRIMERA FILA TOTALMENT BUIDA PER AFEGIR USERS
 	int trobaBuit(String[][] registre) {

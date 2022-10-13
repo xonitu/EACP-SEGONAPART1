@@ -162,12 +162,11 @@ public class EAC4P222231S2 {
 	 * @param registre
 	 */
 	void mostrarRegistre(String[][] registre) {
-		System.out.print("Usuari\tDni\t\tAlta\t\tBaixa");
-		for (int fila = 0; fila < registre.length; fila++) {
-			System.out.print("\n" + registre[fila][ID_USUARI] + "\t" + registre[fila][ID_DNI] + "\t"
-					+ registre[fila][ID_DATA_ALTA] + "\t" + registre[fila][ID_DATA_BAIXA]);
+		System.out.format("%-15s%-15s%-15s%-15s%n", "Usuari", "Dni", "Alta", "Baixa");
+		for (String[] dades : registre) {
+			System.out.format("%-15s%-15s%-15s%-15s%n", (Object[]) dades);
 		}
-		System.out.println("");
+
 	}
 
 	/**
